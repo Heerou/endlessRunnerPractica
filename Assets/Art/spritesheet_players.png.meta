@@ -1,11 +1,13 @@
 fileFormatVersion: 2
 guid: e3d1908b361b0f24784dcaa298484fbe
-timeCreated: 1458008994
+timeCreated: 1460840218
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: spritesheet_players_0
     21300002: spritesheet_players_1
+    21300004: spritesheet_players_2
+    21300006: spritesheet_players_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -70,6 +72,69 @@ TextureImporter:
         - {x: 53, y: 0}
         - {x: 53, y: 147}
         - {x: 48, y: 150}
+    - name: spritesheet_players_0
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 1537
+        width: 112
+        height: 158
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -44, y: 157}
+        - {x: -56, y: 151}
+        - {x: -56, y: 19}
+        - {x: -16, y: 0}
+        - {x: 43, y: 0}
+        - {x: 56, y: 8}
+        - {x: 56, y: 153}
+        - {x: 55, y: 157}
+    - name: spritesheet_players_2
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 1281
+        width: 106
+        height: 156
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 25, y: 153}
+        - {x: -12, y: 153}
+        - {x: -23, y: 152}
+        - {x: -53, y: 140}
+        - {x: -53, y: 18}
+        - {x: -45, y: 0}
+        - {x: 46, y: 0}
+        - {x: 53, y: 22}
+        - {x: 53, y: 123}
+        - {x: 51, y: 132}
+    - name: spritesheet_players_3
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 257
+        width: 108
+        height: 161
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -25, y: 154}
+        - {x: -54, y: 138}
+        - {x: -54, y: 32}
+        - {x: -45, y: 28}
+        - {x: -42, y: 32}
+        - {x: -41, y: 35}
+        - {x: -39, y: 31}
+        - {x: -46, y: 0}
+        - {x: 45, y: 0}
+        - {x: 54, y: 12}
+        - {x: 54, y: 132}
+        - {x: 46, y: 154}
     outline: []
   spritePackingTag: 
   userData: 

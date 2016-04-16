@@ -17,12 +17,16 @@ public class Player_Controller : MonoBehaviour {
 
 	private Collider2D myCollider;
 
+	private Animator myAnimator;
+
 	// Use this for initialization
 	void Start () {
 	
 		myRigidBody = GetComponent<Rigidbody2D>(); 
 
 		myCollider = GetComponent<Collider2D>();
+
+		myAnimator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -43,5 +47,10 @@ public class Player_Controller : MonoBehaviour {
 				myRigidBody.velocity = new Vector2 (myRigidBody.velocity.x, jumpForce);
 			}
 		}
+
+		//Con esto determino la velocidad del aniamtor en base a la del eje x
+		myAnimator.SetFloat ("Speed", myRigidBody.velocity.x);
+		//Aca Uso el metodo grounded para que en el aniamtor pueda usar la animacion
+		myAnimator.SetBool ("Grounded", grounded);
 	}
 }

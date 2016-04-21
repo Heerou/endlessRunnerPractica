@@ -12,6 +12,8 @@ public class PlatformGenerator : MonoBehaviour {
 	public float distanceBetweenMin;
 	public float distanceBetweenMax;
 
+	public ObjectPool theObjectPool;
+
 	// Use this for initialization
 	void Start () {
 		//Asignacion del tamaño de las plataformas
@@ -30,8 +32,15 @@ public class PlatformGenerator : MonoBehaviour {
 			transform.position = new Vector3 (transform.position.x + platformWidth + distanceBetween, transform.position.y, transform.position.z);
 
 			//Crear un objeto que ya existe
-			Instantiate (thePlatform, transform.position, transform.rotation);
-			
+			//Instantiate (thePlatform, transform.position, transform.rotation);
+
+			//Hace lo mismo que la instancia, pero de forma mas optima
+			GameObject newPlatform = theObjectPool.GetPooledGameObject();
+
+			newPlatform.transform.position = transform.position;
+			newPlatform.transform.rotation = transform.rotation;
+			newPlatform.SetActive (true);
+
 		}
 	}
 }

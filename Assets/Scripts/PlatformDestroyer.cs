@@ -19,7 +19,10 @@ public class PlatformDestroyer : MonoBehaviour {
 		//Destruccion de la plataformas
 		if(transform.position.x < platformDestructionPoint.transform.position.x){
 
-			Destroy (gameObject);
+			//Destroy (gameObject);
+
+			//Desactiva los objetos
+			gameObject.SetActive (false);
 		}
 	
 	}

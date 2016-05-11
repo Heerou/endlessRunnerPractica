@@ -13,11 +13,11 @@ public class PlatformGenerator : MonoBehaviour {
 	public float distanceBetweenMin;
 	public float distanceBetweenMax;
 
-	public GameObject[] thePlatforms;
+	//public GameObject[] thePlatforms;
 	private int platformSelector;
 
 	//Piscina de objetos
-	//public ObjectPool theObjectPool;
+	public ObjectPool[] theObjectPool;
 
 	// Use this for initialization
 	void Start () {
@@ -25,12 +25,12 @@ public class PlatformGenerator : MonoBehaviour {
 		//platformWidth = thePlatform.GetComponent<BoxCollider2D> ().size.x;
 
 		//Asignacion del tamaño de las plataformas
-		platformWitdhs = new float[thePlatforms.Length];
+		platformWitdhs = new float[theObjectPool.Length];
 
-		for(int i = 0; i < thePlatforms.Length; i++){
+		for(int i = 0; i < theObjectPool.Length; i++){
 
 			//Distancia entre las columnas
-			platformWitdhs[i] = thePlatforms[i].GetComponent<BoxCollider2D> ().size.x;
+			platformWitdhs[i] = theObjectPool[i].pooledObject.GetComponent<BoxCollider2D> ().size.x;
 		}
 			
 	}
@@ -43,25 +43,28 @@ public class PlatformGenerator : MonoBehaviour {
 			distanceBetween = Random.Range (distanceBetweenMin, distanceBetweenMax);
 
 			//Selecciona aleatoriamente la plataformas
-			platformSelector = Random.Range (0, thePlatforms.Length);
+			platformSelector = Random.Range (0, theObjectPool.Length);
 
 			//Sigue la posicion y genera las nuevas plataformas
 			//transform.position = new Vector3 (transform.position.x + platformWidth + distanceBetween, transform.position.y, transform.position.z);
-			//Distancia entre las plataformas en base del ancho de estas
-			transform.position = new Vector3 (transform.position.x + platformWitdhs[platformSelector] + distanceBetween, transform.position.y, transform.position.z);
+
+			//Distancia entre las plataformas en base del ancho de estas, se multiplica por la mitad, para no pasarse de verga
+			transform.position = new Vector3 (transform.position.x + (platformWitdhs[platformSelector] / 2) + distanceBetween, transform.position.y, transform.position.z);
 
 			//Crear un objeto que ya existe
 			//Instantiate (thePlatform, transform.position, transform.rotation);
 			//Crea la serie de objetos usados con el array
-			Instantiate (thePlatforms[platformSelector], transform.position, transform.rotation);
+			//Instantiate (thePlatforms[platformSelector], transform.position, transform.rotation);
 
 			//Hace lo mismo que la instancia, pero de forma mas optima
-			/*GameObject newPlatform = theObjectPool.GetPooledGameObject();
+			GameObject newPlatform = theObjectPool[platformSelector].GetPooledGameObject();
 
 			newPlatform.transform.position = transform.position;
 			newPlatform.transform.rotation = transform.rotation;
-			newPlatform.SetActive (true);*/
+			newPlatform.SetActive (true);
 
+			//Distancia entre las plataformas en base del ancho de estas, se multiplica por la mitad, para no pasarse de verga
+			transform.position = new Vector3 (transform.position.x + (platformWitdhs[platformSelector] / 2) + distanceBetween, transform.position.y, transform.position.z);
 		}
 	}
 }

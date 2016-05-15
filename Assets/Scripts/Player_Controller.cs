@@ -7,6 +7,9 @@ public class Player_Controller : MonoBehaviour {
 	public float moveSpeed;
 	//Fuerza deSalto
 	public float jumpForce;
+	//Momentum para el salto
+	public float jumpTime;
+	private float jumpTimeCounter;
 
 	//mi RigidBody
 	private Rigidbody2D myRigidBody;
@@ -27,6 +30,8 @@ public class Player_Controller : MonoBehaviour {
 		myCollider = GetComponent<Collider2D>();
 
 		myAnimator = GetComponent<Animator>();
+
+		jumpTimeCounter = jumpTime;
 	}
 	
 	// Update is called once per frame
@@ -46,6 +51,28 @@ public class Player_Controller : MonoBehaviour {
 			if(grounded != false){
 				myRigidBody.velocity = new Vector2 (myRigidBody.velocity.x, jumpForce);
 			}
+		}
+
+		//Con que solo se presione la tecla le da momentum
+		if(Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)){
+
+			if(jumpTimeCounter > 0){
+
+				myRigidBody.velocity = new Vector2 (myRigidBody.velocity.x, jumpForce);
+				jumpTimeCounter -= Time.deltaTime;
+			}
+		}
+
+		//Cancelar el momentun, si lo quito puedo hacer que salte dos veces
+		if(Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButton (0)) {
+
+			jumpTimeCounter = 0;
+		}
+
+		//Reiniciar el momentum
+		if(grounded){
+
+			jumpTimeCounter = jumpTime;
 		}
 
 		//Con esto determino la velocidad del aniamtor en base a la del eje x

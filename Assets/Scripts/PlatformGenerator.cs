@@ -19,6 +19,13 @@ public class PlatformGenerator : MonoBehaviour {
 	//Piscina de objetos
 	public ObjectPool[] theObjectPool;
 
+	//altura de las plataformas
+	private float minHeight;
+	public Transform maxHeightPoint;
+	private float maxHeight;
+	public float maxHeightChange;
+	private float heightChange;
+
 	// Use this for initialization
 	void Start () {
 		//Asignacion del tamaño de las plataformas
@@ -32,7 +39,10 @@ public class PlatformGenerator : MonoBehaviour {
 			//Distancia entre las columnas
 			platformWitdhs[i] = theObjectPool[i].pooledObject.GetComponent<BoxCollider2D> ().size.x;
 		}
-			
+
+		//Altura minima y maxima de las plataformas
+		minHeight = transform.position.y;
+		maxHeight = maxHeightPoint.position.y;			
 	}
 	
 	// Update is called once per frame
@@ -48,8 +58,20 @@ public class PlatformGenerator : MonoBehaviour {
 			//Sigue la posicion y genera las nuevas plataformas
 			//transform.position = new Vector3 (transform.position.x + platformWidth + distanceBetween, transform.position.y, transform.position.z);
 
+			//Variacion de la altura
+			heightChange = transform.position.y + Random.Range (maxHeightChange, -maxHeightChange);
+
+			//Determina que el heightChange no se pase del maximo o el minimo
+			if(heightChange > maxHeight){
+
+				heightChange = maxHeight;
+			}else if(heightChange < minHeight){
+
+				heightChange = minHeight;
+			}
+
 			//Distancia entre las plataformas en base del ancho de estas, se multiplica por la mitad, para no pasarse de verga
-			transform.position = new Vector3 (transform.position.x + (platformWitdhs[platformSelector] / 2) + distanceBetween, transform.position.y, transform.position.z);
+			transform.position = new Vector3 (transform.position.x + (platformWitdhs[platformSelector] / 2) + distanceBetween, heightChange, transform.position.z);
 
 			//Crear un objeto que ya existe
 			//Instantiate (thePlatform, transform.position, transform.rotation);

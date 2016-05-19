@@ -5,6 +5,14 @@ public class Player_Controller : MonoBehaviour {
 
 	//Fuerza de Velociodad
 	public float moveSpeed;
+
+	//Multiplicador de velocidad
+	public float speedMultiplier;
+
+	//Incrementador de velocidad
+	public float speedIncreaseMilestone;
+	private float speedMilestoneCount;
+
 	//Fuerza deSalto
 	public float jumpForce;
 	//Momentum para el salto
@@ -17,8 +25,10 @@ public class Player_Controller : MonoBehaviour {
 	//detecta si esta en el suelo
 	public bool grounded;
 	public LayerMask whatIsGround;
+	public Transform goundCheck;
+	public float goundCheckRadius;
 
-	private Collider2D myCollider;
+	//private Collider2D myCollider;
 
 	private Animator myAnimator;
 
@@ -27,21 +37,33 @@ public class Player_Controller : MonoBehaviour {
 	
 		myRigidBody = GetComponent<Rigidbody2D>(); 
 
-		myCollider = GetComponent<Collider2D>();
+		//myCollider = GetComponent<Collider2D>();
 
 		myAnimator = GetComponent<Animator>();
 
 		jumpTimeCounter = jumpTime;
+
+		speedMilestoneCount = speedIncreaseMilestone;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		//Basicamente, toma si el player esta tocando el ground, si es asi, grounded es true
-		grounded = Physics2D.IsTouchingLayers (myCollider, whatIsGround);
+		//grounded = Physics2D.IsTouchingLayers (myCollider, whatIsGround);
+
+		grounded = Physics2D.OverlapCircle (goundCheck.position, goundCheckRadius, whatIsGround);
+
+		//Aumenta la velocidad en base a la posicion
+		if(transform.position.x > speedMilestoneCount){
+
+			speedMilestoneCount += speedIncreaseMilestone;
+			speedIncreaseMilestone = speedIncreaseMilestone * speedMultiplier;
+			moveSpeed = moveSpeed * speedMultiplier;
+		}
 
 		/*asigno un nuevo vector 2 por que es en 2D y le agrego en el eje x 
-		a moveSpeed para que se mueva y myRigidBody.velocity.y para que tome los valos por defecto de y*/
+		a moveSpeed para que se mueva y myRigidBody.velocity.y para que tome los valores por defecto de y*/
 		myRigidBody.velocity = new Vector2(moveSpeed, myRigidBody.velocity.y);
 
 		//Metodo para saltar

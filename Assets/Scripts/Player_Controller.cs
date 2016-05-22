@@ -6,12 +6,18 @@ public class Player_Controller : MonoBehaviour {
 	//Fuerza de Velociodad
 	public float moveSpeed;
 
+	//Reiniciar la velocidad del jugador al morir
+	private float moveSpeedStore;
 	//Multiplicador de velocidad
 	public float speedMultiplier;
 
 	//Incrementador de velocidad
 	public float speedIncreaseMilestone;
+	private float speedIncreaseMilestoneStore;
+
+	//Contadores de velocidad
 	private float speedMilestoneCount;
+	private float speedMilestoneCountStore;
 
 	//Fuerza deSalto
 	public float jumpForce;
@@ -32,6 +38,9 @@ public class Player_Controller : MonoBehaviour {
 
 	private Animator myAnimator;
 
+	//GameManager
+	public GameManager theGameManager;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -44,6 +53,11 @@ public class Player_Controller : MonoBehaviour {
 		jumpTimeCounter = jumpTime;
 
 		speedMilestoneCount = speedIncreaseMilestone;
+
+		//Reiniciar la velocidad del jugador al morir
+		moveSpeedStore = moveSpeed;
+		speedMilestoneCountStore = speedMilestoneCount;
+		speedIncreaseMilestoneStore = speedIncreaseMilestone;
 	}
 	
 	// Update is called once per frame
@@ -101,5 +115,17 @@ public class Player_Controller : MonoBehaviour {
 		myAnimator.SetFloat ("Speed", myRigidBody.velocity.x);
 		//Aca Uso el metodo grounded para que en el aniamtor pueda usar la animacion
 		myAnimator.SetBool ("Grounded", grounded);
+	}
+
+	//Al tocar algun objeto con el tag killbox, hara que se active la corotina y empieza el juego de nuevo	
+	void OnCollisionEnter2D(Collision2D other) {
+		
+		if (other.gameObject.tag == "killbox") {
+
+			theGameManager.RestartGame ();
+			moveSpeed = moveSpeedStore;
+			speedMilestoneCount = speedMilestoneCountStore;
+			speedIncreaseMilestone = speedIncreaseMilestoneStore;
+		}
 	}
 }

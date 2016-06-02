@@ -11,11 +11,16 @@ public class GameManager : MonoBehaviour {
 
 	private PlatformDestroyer[] platformList;
 
+	//Referencia al ScoreManager
+	private ScoreManager theScoreManager;
+
 	// Use this for initialization
 	void Start () {
 
 		platFormStartPoint = platFormGenerator.position;
 		playerStartPoint = thePlayer.transform.position;
+
+		theScoreManager = FindObjectOfType <ScoreManager>();
 	
 	}
 	
@@ -31,6 +36,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public IEnumerator RestartGameCo(){
+
+		//Hacer que se reinicie el score
+		theScoreManager.scoreIncreasing = false;
 
 		//Hace invisible al player
 		thePlayer.gameObject.SetActive (false);
@@ -50,5 +58,9 @@ public class GameManager : MonoBehaviour {
 		platFormGenerator.position = platFormStartPoint;
 		//Hace visible al player
 		thePlayer.gameObject.SetActive (true);		
+
+		//Aca reincio el contador
+		theScoreManager.scoreCount = 0;
+		theScoreManager.scoreIncreasing = true;
 	}
 }

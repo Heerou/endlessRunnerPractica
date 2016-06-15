@@ -19,6 +19,12 @@ public class Player_Controller : MonoBehaviour {
 	private float speedMilestoneCount;
 	private float speedMilestoneCountStore;
 
+	//Cuando este en el piso se detendra el salto
+	private bool stoppedJumping;
+
+	//Doble Salto
+	private bool canDoubleJump;
+
 	//Fuerza deSalto
 	public float jumpForce;
 	//Momentum para el salto
@@ -58,6 +64,8 @@ public class Player_Controller : MonoBehaviour {
 		moveSpeedStore = moveSpeed;
 		speedMilestoneCountStore = speedMilestoneCount;
 		speedIncreaseMilestoneStore = speedIncreaseMilestone;
+
+		stoppedJumping = true;
 	}
 	
 	// Update is called once per frame
@@ -84,13 +92,22 @@ public class Player_Controller : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
 
 			//Si grounded es true, no permitira el salto infinito, solo saltara si toca el ground
-			if(grounded != false){
+			if(grounded){ 
 				myRigidBody.velocity = new Vector2 (myRigidBody.velocity.x, jumpForce);
+				stoppedJumping = false;
+			}
+
+			//Cuando pase esta condicion se resetea el jumptimecounter y se puede hacer un doble salto mejor
+			if (!grounded && canDoubleJump) {
+				myRigidBody.velocity = new Vector2 (myRigidBody.velocity.x, jumpForce);
+				jumpTimeCounter = jumpTime;
+				stoppedJumping = false;
+				canDoubleJump = false;
 			}
 		}
 
 		//Con que solo se presione la tecla le da momentum
-		if(Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)){
+		if((Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && !stoppedJumping){
 
 			if(jumpTimeCounter > 0){
 
@@ -103,12 +120,14 @@ public class Player_Controller : MonoBehaviour {
 		if(Input.GetKeyUp (KeyCode.Space) || Input.GetMouseButton (0)) {
 
 			jumpTimeCounter = 0;
+			stoppedJumping = true;
 		}
 
 		//Reiniciar el momentum
 		if(grounded){
 
 			jumpTimeCounter = jumpTime;
+			canDoubleJump = true;
 		}
 
 		//Con esto determino la velocidad del aniamtor en base a la del eje x

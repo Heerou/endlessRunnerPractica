@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\DeathMenu.cs">
     <Files>
-      <File FileName="Assets\Scripts\MainMenu.cs" Line="6" Column="52" />
+      <File FileName="Assets\Scripts\DeathMenu.cs" Line="14" Column="26" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="49" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -47,6 +47,10 @@ public class Player_Controller : MonoBehaviour {
 	//GameManager
 	public GameManager theGameManager;
 
+	//Efectos de sonido
+	public AudioSource jumpSource;
+	public AudioSource deathSource;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -95,6 +99,7 @@ public class Player_Controller : MonoBehaviour {
 			if(grounded){ 
 				myRigidBody.velocity = new Vector2 (myRigidBody.velocity.x, jumpForce);
 				stoppedJumping = false;
+				jumpSource.Play();
 			}
 
 			//Cuando pase esta condicion se resetea el jumptimecounter y se puede hacer un doble salto mejor
@@ -103,6 +108,7 @@ public class Player_Controller : MonoBehaviour {
 				jumpTimeCounter = jumpTime;
 				stoppedJumping = false;
 				canDoubleJump = false;
+				jumpSource.Play();
 			}
 		}
 
@@ -145,6 +151,7 @@ public class Player_Controller : MonoBehaviour {
 			moveSpeed = moveSpeedStore;
 			speedMilestoneCount = speedMilestoneCountStore;
 			speedIncreaseMilestone = speedIncreaseMilestoneStore;
+			deathSource.Play ();
 		}
 	}
 }

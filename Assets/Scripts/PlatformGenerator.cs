@@ -30,6 +30,10 @@ public class PlatformGenerator : MonoBehaviour {
 	private CoinGenerator theCoinGenerator;
 	public float randomCoinThreshold;
 
+	//Generador de spikes
+	public float randomSpikeThreshold;
+	public ObjectPool spikePool;
+
 	// Use this for initialization
 	void Start () {
 		//Asignacion del tamaño de las plataformas
@@ -96,6 +100,22 @@ public class PlatformGenerator : MonoBehaviour {
 				theCoinGenerator.SpawnCoins (new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z));
 			}
 
+			//Generar aleatoriamente las spikes
+			if(Random.Range(0f, 100f) < randomSpikeThreshold){
+				
+				GameObject newSpike = spikePool.GetPooledGameObject ();
+
+				//Forma de hacer que aparezcan aleatoriamente las spikes
+				float spikeXPosisiton = Random.Range (-platformWitdhs [platformSelector] / 2f + 1f, platformWitdhs [platformSelector] / 2f - 1f);
+
+				//posisionamiento de las spikes
+				Vector3 spikePosition = new Vector3 (spikeXPosisiton, 0.5f, 0f);
+
+				newSpike.transform.position = transform.position + spikePosition;
+				newSpike.transform.rotation = transform.rotation;
+				newSpike.SetActive (true);
+			}
+				
 			//Distancia entre las plataformas en base del ancho de estas, se multiplica por la mitad, para no pasarse de verga
 			transform.position = new Vector3 (transform.position.x + (platformWitdhs[platformSelector] / 2) + distanceBetween, transform.position.y, transform.position.z);
 		}

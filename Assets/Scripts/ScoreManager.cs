@@ -18,6 +18,8 @@ public class ScoreManager : MonoBehaviour {
 	//Aumentador de puntaje
 	public bool scoreIncreasing;
 
+	public bool shouldDouble;
+
 	// Use this for initialization
 	void Start () {
 
@@ -54,6 +56,11 @@ public class ScoreManager : MonoBehaviour {
 
 	//Funcion, para agregar puntos
 	public void AddScore(int pointToAdd){
+
+		if(shouldDouble){
+
+			pointToAdd = pointToAdd * 2;
+		}
 
 		scoreCount += pointToAdd;
 	}

@@ -17,6 +17,8 @@ public class PowerUpManager : MonoBehaviour {
 	private float normalPointsPerSecond;
 	private float spikeRate;
 
+	private PlatformDestroyer[] spikeList;
+
 	// Use this for initialization
 	void Start () {
 
@@ -62,6 +64,18 @@ public class PowerUpManager : MonoBehaviour {
 
 		normalPointsPerSecond = theScoreManager.pointPerSecond;
 		spikeRate = thePlatformGenerator.randomSpikeThreshold;
+
+		//Cuando el saveMode es activado, desactiva las spikes
+		if (safeMode) {
+			spikeList = FindObjectsOfType<PlatformDestroyer> ();
+			//Por cada objeto que, lo desactiva
+			for (int i = 0; i < spikeList.Length; i++) {
+
+				if (spikeList[i].gameObject.name.Contains("spikes")) {
+					spikeList [i].gameObject.SetActive (false);
+				}
+			}
+		}
 
 		powerUpActive = true;
 	}

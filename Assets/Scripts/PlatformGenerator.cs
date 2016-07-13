@@ -34,6 +34,11 @@ public class PlatformGenerator : MonoBehaviour {
 	public float randomSpikeThreshold;
 	public ObjectPool spikePool;
 
+	//generador de powerups
+	public float powerUpHeight;
+	public ObjectPool powerUpPool;
+	public float powerUpThreshold;
+
 	// Use this for initialization
 	void Start () {
 		//Asignacion del tamaño de las plataformas
@@ -79,6 +84,15 @@ public class PlatformGenerator : MonoBehaviour {
 			}else if(heightChange < minHeight){
 
 				heightChange = minHeight;
+			}
+
+			//Posicion donde seran generados los powerups
+			if(Random.Range(0f, 100f) < powerUpThreshold){
+
+				GameObject newPowerUp = powerUpPool.GetPooledGameObject ();
+				newPowerUp.transform.position = transform.position + new Vector3 (distanceBetween / 2f, Random.Range (powerUpHeight / 2f, powerUpHeight), 0f);
+
+				newPowerUp.SetActive (true);
 			}
 
 			//Distancia entre las plataformas en base del ancho de estas, se multiplica por la mitad, para no pasarse de verga

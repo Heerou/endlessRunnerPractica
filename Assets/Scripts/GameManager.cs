@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour {
 	//Referencia al main menu
 	public DeathMenu theDeathScreen;
 
+	//Reset del powerUp
+	public bool powerUpReset;
+
 	// Use this for initialization
 	void Start () {
 
@@ -67,7 +70,8 @@ public class GameManager : MonoBehaviour {
 		//Aca reincio el contador
 		theScoreManager.scoreCount = 0;
 		theScoreManager.scoreIncreasing = true;
-	
+
+		powerUpReset = true;
 	}
 
 	/*public IEnumerator RestartGameCo(){

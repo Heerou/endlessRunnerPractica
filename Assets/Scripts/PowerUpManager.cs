@@ -19,11 +19,14 @@ public class PowerUpManager : MonoBehaviour {
 
 	private PlatformDestroyer[] spikeList;
 
+	private GameManager theGameManager;
+
 	// Use this for initialization
 	void Start () {
 
 		theScoreManager = FindObjectOfType<ScoreManager> ();
 		thePlatformGenerator = FindObjectOfType<PlatformGenerator> ();
+		theGameManager = FindObjectOfType<GameManager> ();
 	}
 	
 	// Update is called once per frame
@@ -32,6 +35,12 @@ public class PowerUpManager : MonoBehaviour {
 		if(powerUpActive){
 
 			powerUpLenghtCounter -= Time.deltaTime;
+
+			if(theGameManager.powerUpReset){
+			
+				powerUpLenghtCounter = 0;
+				theGameManager.powerUpReset = false;
+			}
 
 			if(doublePoints){
 
